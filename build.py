@@ -28,14 +28,17 @@ def main():
                 'docker login -u mrsipan -p {}'.format(os.environ['DOCKER_HUB_TOKEN']),
                 shell=True
                 )
+
             subprocess.check_call(
-                f'docker push mrsipan/python:{tag.name}',
+                'docker push mrsipan/python:{}'.format(os.environ['PYTHON_VERSION']),
                 shell=True
                 )
+
             subprocess.check_call(
                 f'docker tag mrsipan/python:{tag.name} mrsipan/python:latest',
                 shell=True
                 )
+
             subprocess.check_call(
                 'docker push mrsipan/python:latest',
                 shell=True
