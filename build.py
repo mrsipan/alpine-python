@@ -15,7 +15,10 @@ def main():
             f'https://hub.docker.com/v2/repositories/mrsipan/python/tags/{tag.name}'
             )
 
-        if rsp.status_code != 200:
+        if rsp.status_code == 200:
+            print(f'Version {os.environ["PYTHON_VERSION"]} exists')
+
+        else:
 
             subprocess.check_call(
                 'docker build --build-arg VERSION={0} -t mrsipan/python:{0} .'.format(
@@ -30,12 +33,16 @@ def main():
                 )
 
             subprocess.check_call(
-                'docker push mrsipan/python:{}'.format(os.environ['PYTHON_VERSION']),
+                'docker push mrsipan/python:{}'.format(
+                    os.environ['PYTHON_VERSION']
+                    ),
                 shell=True
                 )
 
             subprocess.check_call(
-                f'docker tag mrsipan/python:{tag.name} mrsipan/python:latest',
+                'docker tag mrsipan/python:{tag.name} mrsipan/python:latest'.format(
+                    os.environ['PYTHON_VERSION']
+                    ),
                 shell=True
                 )
 
