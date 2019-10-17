@@ -18,6 +18,7 @@ RUN set -vex && \
     make && \
     make install && \
     apk del alpine-sdk openssl-dev bzip2-dev zlib-dev && \
+    apk add --update openssl && \
     rm -rf /var/cache/apk/* && \
     mkdir /build && \
     printf "%s\n" /opt/python38/lib > /etc/ld-musl-x86_64.path
