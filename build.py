@@ -4,6 +4,7 @@ import requests
 import subprocess
 import sys
 
+
 def main():
 
     github_client = github.Github(os.environ['GITHUB_TOKEN'])
@@ -11,7 +12,7 @@ def main():
     for tag in github_client.get_user().get_repo('alpine-python').get_tags():
 
         rsp = requests.get(
-            'https://hub.docker.com/v2/repositories/mrsipan/python/tags/{tag.name}'
+            f'https://hub.docker.com/v2/repositories/mrsipan/python/tags/{tag.name}'
             )
 
         if rsp.status_code != 200:
@@ -28,15 +29,15 @@ def main():
                 shell=True
                 )
             subprocess.check_call(
-                'docker push mrsipan/python:{tag.name}'),
+                f'docker push mrsipan/python:{tag.name}',
                 shell=True
                 )
             subprocess.check_call(
-                'docker tag mrsipan/python:{tag.name} mrsipan/python:latest'),
+                f'docker tag mrsipan/python:{tag.name} mrsipan/python:latest',
                 shell=True
                 )
             subprocess.check_call(
-                'docker push mrsipan/python:latest'),
+                'docker push mrsipan/python:latest',
                 shell=True
                 )
 
