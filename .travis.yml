@@ -3,5 +3,10 @@ sudo: required
 services:
   - docker
 
+language: python
+python:
+  - "3.8-dev"
+
 script:
-  - docker build --build-arg VERSION=3.8.0 -t python:3.8.0 .
+  - pip install PyGithub requests
+  - python build.py
