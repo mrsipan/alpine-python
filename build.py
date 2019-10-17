@@ -40,7 +40,7 @@ def main():
                 )
 
             subprocess.check_call(
-                'docker tag mrsipan/python:{tag.name} mrsipan/python:latest'.format(
+                'docker tag mrsipan/python:{} mrsipan/python:latest'.format(
                     os.environ['PYTHON_VERSION']
                     ),
                 shell=True
