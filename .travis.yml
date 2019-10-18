@@ -10,4 +10,4 @@ python:
 script:
   - pip install PyGithub requests
   - python build.py
-  - docker run --rm --it mrsipan/python:3.8.0 python3 -c "import ssl, ctypes, uuid, sqlite3"
+  - docker run --rm -it mrsipan/python:3.8.0 python3 -c "import ssl, ctypes, uuid, sqlite3"
