@@ -7,7 +7,11 @@ ENV TAR_NAME="Python-${VERSION}.tgz"
 ENV PATH /opt/python38/bin:$PATH
 
 RUN set -vex && \
-    apk add --update g++ make openssl-dev bzip2-dev zlib-dev curl && \
+    apk update && \
+    apk add libffi && \
+    apk --no-cache add --virtual python-build-deps \
+    g++ make openssl-dev bzip2-dev zlib-dev curl libffi-dev util-linux-dev \
+    sqlite-dev readline-dev libuuid ncurses-dev gdbm-dev xz-dev && \
     TEMP_DIR=/tmp/build-python-${RANDOM} && \
     test ! -d ${TEMP_DIR} && \
     mkdir ${TEMP_DIR} && \
@@ -17,11 +21,11 @@ RUN set -vex && \
     ./configure --prefix=/opt/python38 --with-ensurepip --enable-shared --enable-ipv6 && \
     make && \
     make install && \
-    apk del curl g++ gcc make openssl-dev bzip2-dev libc-dev zlib-dev && \
+    apk del python-build-deps && \
     rm -rf /var/cache/apk/* && \
     rm -rf /tmp/* && \
     mkdir /build && \
-    printf "%s\n" /opt/python38/lib > /etc/ld-musl-x86_64.path
+    printf "%s\n" /lib /usr/lib /opt/python38/lib > /etc/ld-musl-x86_64.path
 
 WORKDIR /build
 
