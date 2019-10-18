@@ -7,7 +7,7 @@ ENV TAR_NAME="Python-${VERSION}.tgz"
 ENV PATH /opt/python38/bin:$PATH
 
 RUN set -vex && \
-    apk add --update alpine-sdk openssl-dev bzip2-dev zlib-dev && \
+    apk add --update g++ make openssl-dev bzip2-dev zlib-dev curl && \
     TEMP_DIR=/tmp/build-python-${RANDOM} && \
     test ! -d ${TEMP_DIR} && \
     mkdir ${TEMP_DIR} && \
@@ -17,8 +17,7 @@ RUN set -vex && \
     ./configure --prefix=/opt/python38 --with-ensurepip --enable-shared --enable-ipv6 && \
     make && \
     make install && \
-    apk del alpine-sdk openssl-dev bzip2-dev zlib-dev && \
-    apk add --update openssl && \
+    apk del curl g++ gcc make openssl-dev bzip2-dev libc-dev zlib-dev && \
     rm -rf /var/cache/apk/* && \
     mkdir /build && \
     printf "%s\n" /opt/python38/lib > /etc/ld-musl-x86_64.path
@@ -26,9 +25,4 @@ RUN set -vex && \
 WORKDIR /build
 
 CMD ["python3"]
-
-
-
-
-
 
