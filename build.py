@@ -15,7 +15,7 @@ def main():
         shell=True
         )
 
-    if (mo := re.search(r'v(\d\.){3}', os.environ['TRAVIS_BRANCH'])):
+    if (mo := re.search(r'^v\d+\.\d+\.\d+$', os.environ['TRAVIS_BRANCH'])):
 
         rsp = requests.get(
             f'https://hub.docker.com/v2/repositories/mrsipan/python/tags/{os.environ["TRAVIS_BRANCH"][1:]}'
