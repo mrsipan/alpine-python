@@ -19,6 +19,7 @@ RUN set -vex && \
     make install && \
     apk del curl g++ gcc make openssl-dev bzip2-dev libc-dev zlib-dev && \
     rm -rf /var/cache/apk/* && \
+    rm -rf /tmp/* && \
     mkdir /build && \
     printf "%s\n" /opt/python38/lib > /etc/ld-musl-x86_64.path
 
