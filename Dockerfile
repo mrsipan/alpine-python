@@ -8,8 +8,8 @@ ENV PATH /opt/python38/bin:$PATH
 
 RUN set -vex && \
     apk update && \
-    apk add libffi && \
-    apk --no-cache add --virtual python-build-deps \
+    apk add libffi sqlite && \
+    apk --no-cache add --virtual python-build-deps sqlite-dev \
     g++ make openssl-dev bzip2-dev zlib-dev curl libffi-dev util-linux-dev \
     sqlite-dev readline-dev libuuid ncurses-dev gdbm-dev xz-dev && \
     TEMP_DIR=/tmp/build-python-${RANDOM} && \
