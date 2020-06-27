@@ -10,7 +10,7 @@ def main():
 
     subprocess.check_call(
         'docker build --build-arg VERSION={0} -t mrsipan/python:{0} .'.format(
-            os.environ['PYTHON_VERSION']
+            os.environ['TRAVIS_BRANCH']
             ),
         shell=True
         )
@@ -22,7 +22,7 @@ def main():
             )
 
         if rsp.status_code == 200:
-            print(f'Version {os.environ["PYTHON_VERSION"]} exists')
+            print(f'Version {os.environ["TRAVIS_BRANCH"]} exists')
 
         else:
 
@@ -33,14 +33,14 @@ def main():
 
             subprocess.check_call(
                 'docker push mrsipan/python:{}'.format(
-                    os.environ['PYTHON_VERSION']
+                    os.environ['TRAVIS_BRANCH']
                     ),
                 shell=True
                 )
 
             subprocess.check_call(
                 'docker tag mrsipan/python:{} mrsipan/python:latest'.format(
-                    os.environ['PYTHON_VERSION']
+                    os.environ['TRAVIS_BRANCH']
                     ),
                 shell=True
                 )

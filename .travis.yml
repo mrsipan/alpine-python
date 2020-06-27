@@ -9,5 +9,8 @@ python:
 
 script:
   - pip install PyGithub requests
+    if: tag IS present
   - python build.py
-  - docker run --rm -it mrsipan/python:${PYTHON_VERSION} python3 -c "import ssl, ctypes, uuid, sqlite3"
+    if: tag IS present
+  - docker run --rm -it mrsipan/python:${TRAVIS_BRANCH} python3 -c "import ssl, ctypes, uuid, sqlite3"
+    if: tag IS present
