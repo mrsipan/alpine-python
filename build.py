@@ -8,14 +8,14 @@ import sys
 
 def main():
 
-    subprocess.check_call(
-        'docker build --build-arg VERSION={0} -t mrsipan/python:{0} .'.format(
-            os.environ['TRAVIS_BRANCH']
-            ),
-        shell=True
-        )
-
     if (mo := re.search(r'^v\d+\.\d+\.\d+$', os.environ['TRAVIS_BRANCH'])):
+
+        subprocess.check_call(
+            'docker build --build-arg VERSION={0} -t mrsipan/python:{0} .'.format(
+                os.environ['TRAVIS_BRANCH'][1:]
+                ),
+            shell=True
+            )
 
         rsp = requests.get(
             f'https://hub.docker.com/v2/repositories/mrsipan/python/tags/{os.environ["TRAVIS_BRANCH"][1:]}'
